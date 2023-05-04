@@ -16,7 +16,7 @@ def export_excel(response):
             workbook = writer.book
             worksheet = writer.sheets["Relatório"]
 
-            currency_format = workbook.add_format({"num_format": "R$#.##0"})   
+            currency_format = workbook.add_format({"num_format": "R$0.00"})   
             index = 0     
             for row_to_format in response["currencyFormat"]:
                 for key in response["data"][0]:
