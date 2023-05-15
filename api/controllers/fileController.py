@@ -55,7 +55,7 @@ def export_tabs(response):
             sheet_name = 'Relatório' + str(counter)
             df.to_excel(writer, index=False, sheet_name=sheet_name)
             workbook = writer.book
-            worksheet = writer.sheets["Relatório"]
+            worksheet = writer.sheets[sheet_name]
 
             currency_format = workbook.add_format({"num_format": "R$0.00"})   
             index = 0     
