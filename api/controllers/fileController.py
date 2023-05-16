@@ -12,9 +12,10 @@ def export_excel(response):
 
         # Escreve o DataFrame no arquivo Excel
         with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
-            df.to_excel(writer, index=False, sheet_name='Relatório')
+            sheet_name = response["title"] if response["title"] else 'Dados'
+            df.to_excel(writer, index=False, sheet_name=sheet_name)
             workbook = writer.book
-            worksheet = writer.sheets["Relatório"]
+            worksheet = writer.sheets[sheet_name]
 
             currency_format = workbook.add_format({"num_format": "R$0.00"})   
             index = 0     
@@ -51,21 +52,21 @@ def export_tabs(response):
     # Escreve o DataFrame no arquivo Excel
     with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
         for df in data_frame_array:
-            counter = counter + 1
-            sheet_name = 'Relatório' + str(counter)
+            sheet_name = response[counter]["title"] if response[counter]["title"] else 'Dados ' + str(counter + 1)
             df.to_excel(writer, index=False, sheet_name=sheet_name)
             workbook = writer.book
             worksheet = writer.sheets[sheet_name]
 
             currency_format = workbook.add_format({"num_format": "R$0.00"})   
             index = 0     
-            for row_to_format in response[counter - 1]["currencyFormat"]:
-                for key in response[counter - 1]["data"][0]:
+            for row_to_format in response[counter]["currencyFormat"]:
+                for key in response[counter]["data"][0]:
                     if(key == row_to_format):
                         worksheet.set_column(index, index, 24, currency_format)
                     else:
                         worksheet.set_column(index, index, 24)
                     index += 1
+            counter = counter + 1
                     
 
     # Retorna o arquivo Excel em memória como um anexo
