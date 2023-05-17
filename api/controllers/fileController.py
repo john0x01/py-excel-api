@@ -57,13 +57,18 @@ def export_tabs(response):
                 workbook = writer.book
                 worksheet = writer.sheets[sheet_name]
 
-                currency_format = workbook.add_format({"num_format": "R$0.00"})   
+                currency_format = workbook.add_format({"num_format": "R$0.00"})  
+                print(f"Formatos {response[counter]['currencyFormat']}") 
                 for row_to_format in response[counter]["currencyFormat"]:
+                    print(row_to_format)
                     index = 0     
                     for key in response[counter]["data"][0]:
+                        print(f"Analisando coluna {key}")
                         if(key == row_to_format):
+                            print(f"É igual a {row_to_format}")
                             worksheet.set_column(index, index, 24, currency_format)
                         else:
+                            print(f"Não é igual a {row_to_format}")
                             worksheet.set_column(index, index, 24)
                         index += 1
                 counter = counter + 1
