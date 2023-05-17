@@ -38,48 +38,48 @@ def export_excel(response):
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
     except:
-        return {'message': 'Erro na requisição JSON: Informe "data[]" e "currencyFormat[]" '}, 400
+        return {'message': 'Erro na requisição JSON: Informe "data": [], "title": string e "currencyFormat": [] '}, 400
 
 def export_tabs(response):
-    # try:
-    data_frame_array = []
-    for obj in response:
-        data_frame_array.append(pd.DataFrame(data=obj['data']))
-    
-    excel_file = io.BytesIO()
+    try:
+        data_frame_array = []
+        for obj in response:
+            data_frame_array.append(pd.DataFrame(data=obj['data']))
+        
+        excel_file = io.BytesIO()
 
-    counter = 0
-    # Escreve o DataFrame no arquivo Excel
-    with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
-        for df in data_frame_array:
-            sheet_name = response[counter]["title"] if response[counter]["title"] else 'Dados ' + str(counter + 1)
-            df.to_excel(writer, index=False, sheet_name=sheet_name)
-            workbook = writer.book
-            worksheet = writer.sheets[sheet_name]
+        counter = 0
+        # Escreve o DataFrame no arquivo Excel
+        with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
+            for df in data_frame_array:
+                sheet_name = response[counter]["title"] if response[counter]["title"] else 'Dados ' + str(counter + 1)
+                df.to_excel(writer, index=False, sheet_name=sheet_name)
+                workbook = writer.book
+                worksheet = writer.sheets[sheet_name]
 
-            currency_format = workbook.add_format({"num_format": "R$0.00"})   
-            index = 0     
-            for row_to_format in response[counter]["currencyFormat"]:
-                for key in response[counter]["data"][0]:
-                    if(key == row_to_format):
-                        worksheet.set_column(index, index, 24, currency_format)
-                    else:
-                        worksheet.set_column(index, index, 24)
-                    index += 1
-            counter = counter + 1
-                    
+                currency_format = workbook.add_format({"num_format": "R$0.00"})   
+                for row_to_format in response[counter]["currencyFormat"]:
+                    index = 0     
+                    for key in response[counter]["data"][0]:
+                        if(key == row_to_format):
+                            worksheet.set_column(index, index, 24, currency_format)
+                        else:
+                            worksheet.set_column(index, index, 24)
+                        index += 1
+                counter = counter + 1
+                        
 
-    # Retorna o arquivo Excel em memória como um anexo
-    excel_file.seek(0)
-    
-    return send_file(
-        excel_file,
-        attachment_filename='data.xlsx',
-        as_attachment=True,
-        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    )
-    # except:
-    #     return {
-    #         'message': 'Erro na requisição JSON: Informe "data[]" e "currencyFormat[]" '
+        # Retorna o arquivo Excel em memória como um anexo
+        excel_file.seek(0)
+        
+        return send_file(
+            excel_file,
+            attachment_filename='data.xlsx',
+            as_attachment=True,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+    except:
+        return {
+            'message': 'Erro na requisição JSON: Informe "data[]" e "currencyFormat[]" '
 
-    #         }, 400
+            }, 400
