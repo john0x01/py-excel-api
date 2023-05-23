@@ -52,20 +52,24 @@ def export_tabs(response):
         # Escreve o DataFrame no arquivo Excel
         with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
             for df in data_frame_array:
-                sheet_name = response[counter]["title"] if response[counter]["title"] else 'Dados ' + str(counter + 1)
+                try: 
+                    sheet_name = response[counter]["title"] if response[counter]["title"] else 'Dados ' + str(counter + 1)
+                except:
+                    sheet_name = 'Dados'+ str(counter + 1)
+                
                 df.to_excel(writer, index=False, sheet_name=sheet_name)
                 workbook = writer.book
                 worksheet = writer.sheets[sheet_name]
 
-                currency_format = workbook.add_format({"num_format": "R$0.00"})   
-                for row_to_format in response[counter]["currencyFormat"]:
-                    index = 0     
-                    for key in response[counter]["data"][0]:
-                        if(key == row_to_format):
-                            worksheet.set_column(index, index, 24, currency_format)
-                        else:
-                            worksheet.set_column(index, index, 24)
-                        index += 1
+                currency_format = workbook.add_format({"num_format": "R$0.00"})  
+                index = 0
+                for column in response[counter]["data"][0]:
+                    print(f"Analisando coluna {column}")
+                    if(column in response[counter]["currencyFormat"]):
+                        worksheet.set_column(index, index, 24, currency_format)
+                    else:
+                        worksheet.set_column(index, index, 24)
+                    index += 1
                 counter = counter + 1
                         
 
