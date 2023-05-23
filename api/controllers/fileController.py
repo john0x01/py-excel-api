@@ -62,6 +62,7 @@ def export_tabs(response):
                 worksheet = writer.sheets[sheet_name]
 
                 currency_format = workbook.add_format({"num_format": "R$0.00"})  
+                index = 0
                 for column in response[counter]["data"][0]:
                     print(f"Analisando coluna {column}")
                     if(column in response[counter]["currencyFormat"]):
