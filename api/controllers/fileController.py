@@ -112,7 +112,7 @@ def export_compositions(response):
             row_index = 0
             for row in response["data"]:
                 if(row['Código'] in response["categoryFormat"]):
-                    worksheet.set_row(row_index, 12, category_format)
+                    worksheet.set_row(row_index, 12)
                 else:
                     worksheet.set_row(row_index, 12)
                 row_index = row_index + 1
