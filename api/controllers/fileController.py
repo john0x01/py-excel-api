@@ -100,7 +100,7 @@ def export_compositions(response):
             worksheet = writer.sheets[sheet_name]
 
             currency_format = workbook.add_format({"num_format": "R$0.00"})   
-            category_format = workbook.add_format({"bg_color": "black", "font_color": "white"})
+            category_format = workbook.add_format({"bg_color": "#171717"})
             index = 0
             for column in response["data"][0]:
                 if(column in response["currencyFormat"]):
@@ -109,13 +109,13 @@ def export_compositions(response):
                     worksheet.set_column(index, index, 24)
                 index += 1
             
-            # row_index = 0
-            # for row in response["data"]:
-            #     if(row['Código'] in response["categoryFormat"]):
-            #         worksheet.set_row(row_index, 12)
-            #     else:
-            #         worksheet.set_row(row_index, 12)
-            #     row_index = row_index + 1
+            row_index = 0
+            for row in response["data"]:
+                if(row['Código'] in response["categoryFormat"]):
+                    worksheet.set_row(row_index, 12, category_format)
+                else:
+                    worksheet.set_row(row_index, 12)
+                row_index = row_index + 1
 
 
         # Retorna o arquivo Excel em memória como um anexo
