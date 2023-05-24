@@ -105,11 +105,11 @@ def export_compositions(response):
             row_index = 1
             for row in response["data"]:
                 if(row['Código'] in response["categoryFormat"]):
-                    worksheet.set_row(row_index, 12, category_format)
+                    worksheet.conditional_format(row_index, 0, row_index, len(row.keys()), { 'type': 'no_blanks', 'format': category_format})
                 else:
                     worksheet.set_row(row_index, 12)
                 row_index = row_index + 1
-                
+
             index = 0
             for column in response["data"][0]:
                 if(column in response["currencyFormat"]):
