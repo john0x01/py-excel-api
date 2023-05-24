@@ -100,7 +100,7 @@ def export_compositions(response):
             worksheet = writer.sheets[sheet_name]
 
             currency_format = workbook.add_format({"num_format": "R$0.00"})   
-            category_format = workbook.add_format({"bg_color": "#171717"})
+            category_format = workbook.add_format({"bg_color": "#171717", 'font_color': "#FFFFFF"})
 
             row_index = 1
             for row in response["data"]:
