@@ -74,12 +74,12 @@ def export_tabs(response):
                     else:
                         worksheet.set_column(index, index, 24)
                     index += 1
-                counter = counter + 1
 
                 page_title = response[counter]["header"]["title"]
-                # worksheet.write(0, 0, page_title, title_format)
+                worksheet.write(0, 0, page_title, title_format)
 
-                # worksheet.merge_range(0, 0, 0, index, page_title, title_format)
+                worksheet.merge_range(0, 0, 0, index, page_title, title_format)
+                counter = counter + 1
 
                         
 
