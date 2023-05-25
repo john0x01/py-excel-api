@@ -60,7 +60,7 @@ def export_tabs(response):
                 except:
                     sheet_name = 'Dados'+ str(counter + 1)
                 
-                df.to_excel(writer, index=False, sheet_name=sheet_name, start_row=1)
+                df.to_excel(writer, index=False, sheet_name=sheet_name, startrow=1)
                 workbook = writer.book
                 worksheet = writer.sheets[sheet_name]
 
