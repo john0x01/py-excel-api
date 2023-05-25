@@ -60,7 +60,9 @@ def export_tabs(response):
                 workbook = writer.book
                 worksheet = writer.sheets[sheet_name]
 
-                currency_format = workbook.add_format({"num_format": "R$0.00"})  
+                currency_format = workbook.add_format({"num_format": "R$0.00"})
+                title_format = workbook.add_format({'bold': True, 'font_size': 14 })
+
                 index = 0
                 for column in response[counter]["data"][0]:
                     if(column in response[counter]["currencyFormat"]):
@@ -69,6 +71,12 @@ def export_tabs(response):
                         worksheet.set_column(index, index, 24)
                     index += 1
                 counter = counter + 1
+
+                page_title = response[counter]["header"]["title"]
+                worksheet.write(0, 0, page_title, title_format)
+
+                worksheet.merge_range(0, 0, 0, index, page_title, title_format)
+
                         
 
         # Retorna o arquivo Excel em memória como um anexo
