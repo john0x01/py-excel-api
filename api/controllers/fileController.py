@@ -65,7 +65,7 @@ def export_tabs(response):
                 worksheet = writer.sheets[sheet_name]
 
                 currency_format = workbook.add_format({"num_format": "R$0.00"})
-                title_format = workbook.add_format({'bold': True, 'font_size': '14', 'bg_color': '#fff1f3' })
+                title_format = workbook.add_format({'bold': True, 'font_size': '14', 'bg_color': '#FABF8F' })
 
                 index = 0
                 for column in response[counter]["data"][0]:
