@@ -55,12 +55,21 @@ def export_tabs(response):
         # Escreve o DataFrame no arquivo Excel
         with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
             for df in data_frame_array:
+                startrow = 0
+                if response[counter]["header"]:
+                    if response[counter]["header"]["title"]:
+                        has_title = True
+                        startrow = 1
+                    if response[counter]["header"]["date"]:
+                        has_date = True
+                        startrow = 3
+
                 try: 
                     sheet_name = response[counter]["title"] if response[counter]["title"] else 'Dados ' + str(counter + 1)
                 except:
                     sheet_name = 'Dados'+ str(counter + 1)
                 
-                df.to_excel(writer, index=False, sheet_name=sheet_name, startrow=1)
+                df.to_excel(writer, index=False, sheet_name=sheet_name, startrow=startrow)
                 workbook = writer.book
                 worksheet = writer.sheets[sheet_name]
 
@@ -75,10 +84,17 @@ def export_tabs(response):
                         worksheet.set_column(index, index, 24)
                     index += 1
 
-                page_title = response[counter]["header"]["title"]
-                worksheet.write(0, 0, page_title, title_format)
+                if has_title:
+                    page_title = response[counter]["header"]["title"]
+                    worksheet.write(0, 0, page_title, title_format)
+                    worksheet.merge_range(0, 0, 0, index, page_title, title_format)
 
-                worksheet.merge_range(0, 0, 0, index, page_title, title_format)
+                if has_date:
+                    page_date = response[counter]["header"]["date"]
+                    worksheet.write(1, 0, "PERÍODO DE PROGRAMAÇÃO", title_format)
+                    worksheet.write(2, 0, page_date, title_format)
+                    worksheet.merge_range(1, 1, 0, 1, "PERÍODO DE PROGRAMAÇÃO", title_format)                        
+                    worksheet.merge_range(2, 2, 0, 1, page_date, title_format)    
                 counter = counter + 1
 
                         
