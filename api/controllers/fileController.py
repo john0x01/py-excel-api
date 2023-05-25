@@ -36,8 +36,12 @@ def export_excel(response):
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
-    except:
-        return {'message': 'Erro na requisição JSON: Informe "data": [], "title": string e "currencyFormat": [] '}, 400
+    except Exception as e:
+        return {
+            'message': 'Erro ao gravar excel',
+            'error': str(e)
+
+            }, 400
 
 def export_tabs(response):
     try:
@@ -88,9 +92,10 @@ def export_tabs(response):
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
-    except:
+    except Exception as e:
         return {
-            'message': 'Erro na requisição JSON: Informe "data[]" e "currencyFormat[]" '
+            'message': 'Erro ao gravar excel',
+            'error': str(e)
 
             }, 400
 
@@ -137,5 +142,9 @@ def export_compositions(response):
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
-    except:
-        return {'message': 'Erro na requisição JSON: Informe "data": [], "title": string e "currencyFormat": [] '}, 400
+    except Exception as e:
+        return {
+            'message': 'Erro ao gravar excel',
+            'error': str(e)
+
+            }, 400
