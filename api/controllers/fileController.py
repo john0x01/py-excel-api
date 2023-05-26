@@ -80,7 +80,7 @@ def export_tabs(response):
                 worksheet = writer.sheets[sheet_name]
 
                 currency_format = workbook.add_format({"num_format": "R$0.00"})
-                title_format = workbook.add_format({'bold': True, 'font_size': '16', 'bg_color': '#FABF8F', 'allign': 'center'})
+                title_format = workbook.add_format({'bold': True, 'font_size': '16', 'bg_color': '#FABF8F', 'align': 'center'})
                 date_format = workbook.add_format({'bold': True, 'font_size': '14', 'bg_color': '#FABF8F'})
 
                 index = 0
