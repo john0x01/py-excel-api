@@ -80,7 +80,8 @@ def export_tabs(response):
                 worksheet = writer.sheets[sheet_name]
 
                 currency_format = workbook.add_format({"num_format": "R$0.00"})
-                title_format = workbook.add_format({'bold': True, 'font_size': '14', 'bg_color': '#FABF8F' })
+                title_format = workbook.add_format({'bold': True, 'font_size': '16', 'bg_color': '#FABF8F', 'allign': 'center'})
+                date_format = workbook.add_format({'bold': True, 'font_size': '14', 'bg_color': '#FABF8F'})
 
                 index = 0
                 for column in response[counter]["data"][0]:
@@ -92,15 +93,16 @@ def export_tabs(response):
 
                 if has_title:
                     page_title = response[counter]["header"]["title"]
+                    worksheet.set_row(0, 40)
                     worksheet.write(0, 0, page_title, title_format)
                     worksheet.merge_range(0, 0, 0, index, page_title, title_format)
 
                 if has_date:
                     page_date = response[counter]["header"]["date"]
-                    worksheet.write(1, 0, "PERÍODO DE PROGRAMAÇÃO", title_format)
-                    worksheet.write(2, 0, page_date, title_format)
-                    worksheet.merge_range(1, 0, 1, 1, "PERÍODO DE PROGRAMAÇÃO", title_format)                        
-                    worksheet.merge_range(2, 0, 2, 1, page_date, title_format)    
+                    worksheet.write(1, 0, "PERÍODO DE PROGRAMAÇÃO", date_format)
+                    worksheet.write(2, 0, page_date, date_format)
+                    worksheet.merge_range(1, 0, 1, 1, "PERÍODO DE PROGRAMAÇÃO", date_format)                        
+                    worksheet.merge_range(2, 0, 2, 1, page_date, date_format)    
                 counter = counter + 1
 
                         
