@@ -98,9 +98,9 @@ def export_tabs(response):
                 if has_date:
                     page_date = response[counter]["header"]["date"]
                     worksheet.write(1, 0, "PERÍODO DE PROGRAMAÇÃO", title_format)
-                    # worksheet.write(2, 0, page_date, title_format)
+                    worksheet.write(2, 0, page_date, title_format)
                     worksheet.merge_range(1, 0, 1, 1, "PERÍODO DE PROGRAMAÇÃO", title_format)                        
-                    # worksheet.merge_range(2, 2, 0, 1, page_date, title_format)    
+                    worksheet.merge_range(2, 0, 2, 1, page_date, title_format)    
                 counter = counter + 1
 
                         
