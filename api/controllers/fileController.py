@@ -80,22 +80,33 @@ def export_tabs(response):
                 worksheet = writer.sheets[sheet_name]
 
                 currency_format = workbook.add_format({"num_format": "R$0.00"})
-                title_format = workbook.add_format({'bold': True, 'font_size': '16', 'bg_color': '#FABF8F', 'align': 'center'})
-                date_format = workbook.add_format({'bold': True, 'font_size': '14', 'bg_color': '#FABF8F'})
 
-                index = 0
+                title_format = workbook.add_format({
+                    'bold': True, 
+                    'font_size': '16', 
+                    'bg_color': '#FABF8F', 
+                    'align': 'center',
+                    'align': 'vcenter',
+                })
+                date_format = workbook.add_format({
+                    'bold': True, 
+                    'font_size': '14', 
+                    'bg_color': '#FABF8F'
+                })
+
+                columnCount = 0
                 for column in response[counter]["data"][0]:
                     if(column in response[counter]["currencyFormat"]):
-                        worksheet.set_column(index, index, 24, currency_format)
+                        worksheet.set_column(columnCount, columnCount, 24, currency_format)
                     else:
-                        worksheet.set_column(index, index, 24)
-                    index += 1
+                        worksheet.set_column(columnCount, columnCount, 24)
+                    columnCount += 1
 
                 if has_title:
                     page_title = response[counter]["header"]["title"]
-                    worksheet.set_row(0, 40)
+                    worksheet.set_row(0, 32)
                     worksheet.write(0, 0, page_title, title_format)
-                    worksheet.merge_range(0, 0, 0, index, page_title, title_format)
+                    worksheet.merge_range(0, 0, 0, columnCount - 1, page_title, title_format)
 
                 if has_date:
                     page_date = response[counter]["header"]["date"]
