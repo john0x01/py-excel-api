@@ -85,9 +85,10 @@ def export_tabs(response):
                     'bold': True, 
                     'font_size': '16', 
                     'bg_color': '#FABF8F', 
-                    'align': 'center',
-                    'align': 'vcenter',
                 })
+                title_format.set_align('center')
+                title_format.set_align('vcenter')
+
                 date_format = workbook.add_format({
                     'bold': True, 
                     'font_size': '14', 
