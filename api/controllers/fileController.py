@@ -98,7 +98,7 @@ def export_tabs(response):
                 columnCount = 0
                 for column in response[counter]["data"][0]:
                     if(column == "FILIAL / CENTRO CUSTO"):
-                        column_width = 58
+                        column_width = 98
                     else:
                         column_width = 18
 
