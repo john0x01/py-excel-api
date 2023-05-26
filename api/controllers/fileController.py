@@ -90,10 +90,10 @@ def export_tabs(response):
                         worksheet.set_column(index, index, 24)
                     index += 1
 
-                # if has_title:
-                #     page_title = response[counter]["header"]["title"]
-                #     worksheet.write(0, 0, page_title, title_format)
-                #     worksheet.merge_range(0, 0, 0, index, page_title, title_format)
+                if has_title:
+                    page_title = response[counter]["header"]["title"]
+                    worksheet.write(0, 0, page_title, title_format)
+                    worksheet.merge_range(0, 0, 0, index, page_title, title_format)
 
                 # if has_date:
                 #     page_date = response[counter]["header"]["date"]
