@@ -97,10 +97,15 @@ def export_tabs(response):
 
                 columnCount = 0
                 for column in response[counter]["data"][0]:
-                    if(column in response[counter]["currencyFormat"]):
-                        worksheet.set_column(columnCount, columnCount, 24, currency_format)
+                    if(column == "FILIAL / CENTRO DE CUSTO"):
+                        column_width = 58
                     else:
-                        worksheet.set_column(columnCount, columnCount, 24)
+                        column_width = 18
+
+                    if(column in response[counter]["currencyFormat"]):
+                        worksheet.set_column(columnCount, columnCount, column_width, currency_format)
+                    else:
+                        worksheet.set_column(columnCount, columnCount, column_width)
                     columnCount += 1
 
                 if has_title:
