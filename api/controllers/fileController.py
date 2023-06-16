@@ -198,7 +198,8 @@ def export_with_children(response):
 
         # Escreve o DataFrame no arquivo Excel
         with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
-            sheet_name = response["title"] if response["title"] else 'Dados'
+            # sheet_name = response["title"] if response["title"] else 'Dados'
+            sheet_name = 'Dados'
             df.to_excel(writer, index=False, sheet_name=sheet_name)
             workbook = writer.book
             worksheet = writer.sheets[sheet_name]
@@ -206,7 +207,7 @@ def export_with_children(response):
             currency_format = workbook.add_format({"num_format": "R$0.00"})   
             parent_format = workbook.add_format({"bg_color": "#171717", 'font_color': "#FFFFFF"})
 
-            row_index = 0
+            row_index = 1
             for row in response["data"]:
                 if(row['Material'] in response["parentFormat"]):
                     worksheet.conditional_format(row_index, 0, row_index, len(row.keys()), { 'type': 'no_blanks', 'format': parent_format})
