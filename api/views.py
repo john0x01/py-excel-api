@@ -40,7 +40,6 @@ def post_with_children():
     try:
         response = request.get_json()
     except:
-        return {'message': 'Falha na requisição JSON'}, 400
+        return {'message': 'Falha na requisição JSON'}, 420
     
-    # return export_with_children(response)
-    return {'message': 'OK'}, 200
+    return export_with_children(response)
