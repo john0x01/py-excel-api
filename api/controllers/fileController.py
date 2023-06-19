@@ -1,4 +1,4 @@
-from flask import send_file
+from flask import jsonify, send_file
 import pandas as pd
 import xlsxwriter
 import io
@@ -235,8 +235,9 @@ def export_with_children(response):
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
     except Exception as e:
-        return {
-            'message': 'Erro ao gravar excel',
-            'error': str(e)
-
-            }, 419
+        # return jsonify'message': 'Erro ao gravar excel','error': str(e)), 400
+        return jsonify({
+            "messag": "Erro ao gravar Excel",
+            "error": str(e),
+            "status": "400"
+        })
