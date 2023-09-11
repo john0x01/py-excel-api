@@ -12,6 +12,35 @@ python3 run.py
 ```
 The API will be running at `http://localhost:5000`
 
+### Request Example
+```js
+async function request() {
+    const response = await fetch('http://localhost:5000/export', {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify(dataBody),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    return response
+}
+
+request()
+    .then(response => response.blob())
+    .then(blob => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'arquivo.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    })
+    .catch(error => console.error(error));
+```
+
 ## Routes
 * `exportDefault`: `POST` - Receives a JSON object and return a .xlsx file
 ```json
