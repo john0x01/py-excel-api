@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Requisição</title>
+</head>
+<body>
+  <h1>Requisição</h1>
+  <button onclick="exportExcel()">Excel</button>
+</body>
+<script>
+const data = {
+    "title": "Cotação itens",
+    "parentFormat": [
+        "FULANO"
+    ],
+    "currencyFormat": [
+      "Preço",
+      "Total"
+    ],
+    "data": [
+        {
+            "Material": "FULANO",
+            "Observação": "QTD: 3",
+            "Quantidade": "TOTAL BRUTO: R$ 648,00",
+            "Preço": "DESCONTOS/ACRESCIMOS: R$ 0,00",
+            "Total": "TOTAL: R$ 648,00"
+        },
+        {
+            "Material": "1 -  | FILTRO DE OLEO",
+            "Observação": "",
+            "Quantidade": 4,
+            "Preço": 45,
+            "Total": 180
+        },
+        {
+            "Material": "2 -  | OLEO ATF TIPO A",
+            "Observação": "",
+            "Quantidade": 6,
+            "Preço": 33,
+            "Total": 198
+        },
+        {
+            "Material": "3 - 123123 | FILTRO DE AR",
+            "Observação": "",
+            "Quantidade": 5,
+            "Preço": 54,
+            "Total": 270
+        }
+    ]
+}
+function exportExcel() {
+  console.log('Fetch')
+  fetch('https://excel-api.smartnewsistemas.com.br/exportWithChildren', 
+    {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify(data)
+    })    
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]))
+        const a = document.createElement('a')
+        a.href = url
+        a.download = 'arquivo.xlsx'
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+      })
+      .catch(error => console.error(error))
+      
+}
+</script>
+</html>
