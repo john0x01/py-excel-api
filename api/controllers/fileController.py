@@ -32,7 +32,7 @@ def export_excel(response):
         
         return send_file(
             excel_file,
-            download_name="data.xlsx"
+            download_name="data.xlsx",
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
@@ -129,7 +129,7 @@ def export_tabs(response):
         
         return send_file(
             excel_file,
-            download_name="data.xlsx"
+            download_name="data.xlsx",
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
@@ -179,7 +179,7 @@ def export_compositions(response):
         
         return send_file(
             excel_file,
-            download_name="data.xlsx"
+            download_name="data.xlsx",
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
@@ -230,7 +230,7 @@ def export_with_children(response):
         
         return send_file(
             excel_file,
-            download_name="data.xlsx"
+            download_name="data.xlsx",
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
