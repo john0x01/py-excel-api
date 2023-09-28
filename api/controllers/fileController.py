@@ -32,6 +32,7 @@ def export_excel(response):
         
         return send_file(
             excel_file,
+            download_name="data.xlsx"
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
@@ -40,7 +41,7 @@ def export_excel(response):
             "message": "Erro ao gravar Excel",
             "error": str(e),
             "status": "400"
-        })
+        }, 400)
 
 def export_tabs(response):
     try:
@@ -128,6 +129,7 @@ def export_tabs(response):
         
         return send_file(
             excel_file,
+            download_name="data.xlsx"
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
@@ -136,7 +138,7 @@ def export_tabs(response):
             "message": "Erro ao gravar Excel",
             "error": str(e),
             "status": "400"
-        })
+        }, 400)
 
 def export_compositions(response):
     try:
@@ -177,6 +179,7 @@ def export_compositions(response):
         
         return send_file(
             excel_file,
+            download_name="data.xlsx"
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
@@ -185,7 +188,7 @@ def export_compositions(response):
             "message": "Erro ao gravar Excel",
             "error": str(e),
             "status": "400"
-        })
+        }, 400)
     
 def export_with_children(response):
     try:
@@ -227,6 +230,7 @@ def export_with_children(response):
         
         return send_file(
             excel_file,
+            download_name="data.xlsx"
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
@@ -236,4 +240,4 @@ def export_with_children(response):
             "message": "Erro ao gravar Excel",
             "error": str(e),
             "status": "400"
-        })
+        }, 400)
