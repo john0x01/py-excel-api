@@ -32,16 +32,15 @@ def export_excel(response):
         
         return send_file(
             excel_file,
-            attachment_filename='data.xlsx',
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
     except Exception as e:
-        return {
-            'message': 'Erro ao gravar excel',
-            'error': str(e)
-
-            }, 400
+        return jsonify({
+            "message": "Erro ao gravar Excel",
+            "error": str(e),
+            "status": "400"
+        })
 
 def export_tabs(response):
     try:
@@ -129,16 +128,15 @@ def export_tabs(response):
         
         return send_file(
             excel_file,
-            attachment_filename='data.xlsx',
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
     except Exception as e:
-        return {
-            'message': 'Erro ao gravar excel',
-            'error': str(e)
-
-            }, 400
+        return jsonify({
+            "message": "Erro ao gravar Excel",
+            "error": str(e),
+            "status": "400"
+        })
 
 def export_compositions(response):
     try:
@@ -179,16 +177,15 @@ def export_compositions(response):
         
         return send_file(
             excel_file,
-            attachment_filename='data.xlsx',
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
     except Exception as e:
-        return {
-            'message': 'Erro ao gravar excel',
-            'error': str(e)
-
-            }, 400
+        return jsonify({
+            "message": "Erro ao gravar Excel",
+            "error": str(e),
+            "status": "400"
+        })
     
 def export_with_children(response):
     try:
@@ -230,14 +227,13 @@ def export_with_children(response):
         
         return send_file(
             excel_file,
-            attachment_filename='data.xlsx',
             as_attachment=True,
             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
     except Exception as e:
-        # return jsonify'message': 'Erro ao gravar excel','error': str(e)), 400
+        # return jsonify'messagee': 'Erro ao gravar excel','error': str(e)), 400
         return jsonify({
-            "messag": "Erro ao gravar Excel",
+            "message": "Erro ao gravar Excel",
             "error": str(e),
             "status": "400"
         })
