@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Requisição</title>
+</head>
+<body>
+  <h1>Requisição</h1>
+  <button onclick="exportExcel()">Excel</button>
+</body>
+<script>
+const data = {
+    title: "Cotação itens",
+    currencyFormat: ["Preço", "Total"],
+    suppliers: [
+      {
+        name: "HIDRAU TORQUE - GHT SP",
+        total: 18843.40
+      },
+      {
+        name: "ENGEPEÇAS GO", 
+        total: 15490.60,
+      },
+      {
+        name: "GEOMAQ SP",
+        total: 31240.56,
+      }
+    ],
+    renameCols: {
+      "MARCA_2": "MARCA", 
+      "Preço_2": "Preço", 
+      "Total_2": "Total",
+      "MARCA_3": "MARCA", 
+      "Preço_3": "Preço", 
+      "Total_3": "Total"
+    },
+    data: [
+      {
+        "Material": "COROA DE GIRO",
+        "qnt.": "1",
+        "MARCA": 'FORTRACTOR GOLD',
+        "Preço": 11364.09,
+        "Total": 11364.09,
+        "MARCA_2": 'HP',
+        "Preço_2": 15364.09,
+        "Total_2": 15364.09,
+        "MARCA_3": '',
+        "Preço_3": 0,
+        "Total_3": 0,
+      },
+      {
+        "Material": "EIXO PINHÃO",
+        "qnt.": "1",
+        "MARCA": 'IMPORTADO',
+        "Preço": 21364.09,
+        "Total": 21364.09,
+        "MARCA_2": 'ITR-ITALIA',
+        "Preço_2": 14364.09,
+        "Total_2": 14364.09,
+        "MARCA_3": '',
+        "Preço_3": 4590,
+        "Total_3": 4590,
+      },
+      {
+        "Material": "RETENTOR",
+        "qnt.": "2",
+        "MARCA": 'BLUMAQ',
+        "Preço": 196.92,
+        "Total": 382.08,
+        "MARCA_2": 'WORLD GHT',
+        "Preço_2": 6364.09,
+        "Total_2": 6364.09,
+        "MARCA_3": 'BLUMAQ',
+        "Preço_3": 420,
+        "Total_3": 840,
+      },
+    ]
+}
+function exportExcel() {
+  console.log('Fetch')
+  fetch('http://127.0.0.1:2000/exportSuppliers', 
+    {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify(data)
+    })    
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]))
+        const a = document.createElement('a')
+        a.href = url
+        a.download = 'arquivo.xlsx'
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+      })
+      .catch(error => console.error(error))
+      
+}
+</script>
+</html>

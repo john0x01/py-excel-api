@@ -2,4 +2,5 @@ env/
 __pycache__/
 index.html
 requisicao.json
+test.py
 *.pyc
