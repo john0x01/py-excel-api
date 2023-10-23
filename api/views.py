@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 import json
-from api.controllers.fileController import export_excel, export_tabs, export_compositions, export_suppliers
+from api.controllers.fileController import export_excel, export_tabs, export_compositions, export_with_children, export_suppliers
 
 api_bp = Blueprint('api', __name__)
 
@@ -34,6 +34,15 @@ def post_compos():
         return {'message': 'Falha na requisição JSON'}, 400
     
     return export_compositions(response)
+
+@api_bp.route('/exportWithChildren', methods=['POST'])
+def post_with_children(): 
+    try:
+        response = request.get_json()
+    except:
+        return {'message': 'Falha na requisição JSON'}, 420
+    
+    return export_with_children(response)
 
 @api_bp.route('/exportSuppliers', methods=['POST'])
 def post_suppliers():
