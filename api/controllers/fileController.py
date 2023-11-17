@@ -56,19 +56,22 @@ def export_tabs(response):
         with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
             for df in data_frame_array:
                 startrow = 0
-                if response[counter]["header"]:
-                    try:
-                        if response[counter]["header"]["title"]:
-                            has_title = True
-                            startrow = 1
-                    except:
-                        has_title = False
-                    try:
-                        if response[counter]["header"]["date"]:
-                            has_date = True
-                            startrow = 3
-                    except:
-                        has_date = False
+                try:
+                    if response[counter]["header"]:
+                        try:
+                            if response[counter]["header"]["title"]:
+                                has_title = True
+                                startrow = 1
+                        except:
+                            has_title = False
+                        try:
+                            if response[counter]["header"]["date"]:
+                                has_date = True
+                                startrow = 3
+                        except:
+                            has_date = False
+                except:
+                    pass
 
                 try: 
                     sheet_name = response[counter]["title"] if response[counter]["title"] else 'Dados ' + str(counter + 1)
