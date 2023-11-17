@@ -55,6 +55,7 @@ def export_tabs(response):
         # Escreve o DataFrame no arquivo Excel
         with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
             has_title = False
+            has_date = False
             for df in data_frame_array:
                 startrow = 0
                 try:
