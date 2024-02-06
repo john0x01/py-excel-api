@@ -35,6 +35,7 @@ def export_compositions(request):
 
             currency_format = workbook.add_format({"num_format": "R$0.00"})   
             category_format = workbook.add_format({"bg_color": "#171717", 'font_color': "#FFFFFF"})
+            total_format = workbook.add_format({ "bg_color": "#973436", 'font_color': "#FFFFFF" })
 
             title_format = workbook.add_format({
                 'bold': True, 
@@ -51,6 +52,9 @@ def export_compositions(request):
             for row in request["data"]:
                 if(row['Código'] in request["categoryFormat"]):
                     worksheet.conditional_format(row_index, 0, row_index, len(row.keys()), { 'type': 'no_blanks', 'format': category_format})
+                elif(row['Código'] == 'Total'):
+                    worksheet.conditional_format(row_index, 0, row_index, len(row.keys()), { 'type': 'no_blanks', 'format': total_format })
+                    worksheet.merge_range(row_index, 0, row_index, 1, "Total", total_format)
                 else:
                     worksheet.set_row(row_index, 12)
                 row_index = row_index + 1
@@ -67,13 +71,13 @@ def export_compositions(request):
                 page_title = request["header"]["title"]
                 worksheet.set_row(0, 32)
                 worksheet.write(0, 0, page_title, title_format)
-                worksheet.merge_range(0, 0, 0, col_index, page_title, title_format)
+                worksheet.merge_range(0, 0, 0, col_index - 1, page_title, title_format)
 
             if has_date:
                 page_date = request["header"]["interval"]
                 worksheet.write(1, 0, "Período: " + page_date , interval_format)
                 worksheet.set_row(1, 18)
-                worksheet.merge_range(1, 0, 1, col_index, "Período: " + page_date, interval_format)                        
+                worksheet.merge_range(1, 0, 1, col_index - 1, "Período: " + page_date, interval_format)                        
 
 
         # Retorna o arquivo Excel em memória como um anexo
