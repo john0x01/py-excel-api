@@ -1,6 +1,10 @@
 from flask import Blueprint, request
 import json
-from api.controllers.fileController import export_excel, export_tabs, export_compositions, export_with_children, export_suppliers
+from api.routes.export_excel import export_excel
+from api.routes.export_compositions import export_compositions
+from api.routes.export_suppliers import export_suppliers
+from api.routes.export_tabs import export_tabs
+from api.routes.export_with_children import export_with_children
 
 api_bp = Blueprint('api', __name__)
 
